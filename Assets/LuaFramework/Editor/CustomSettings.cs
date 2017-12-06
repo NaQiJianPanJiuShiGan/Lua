@@ -51,7 +51,7 @@ public static class CustomSettings
         //-------------------------------------------------------------------        
                                        
         _GT(typeof(Debugger)),                       
-                                       
+                                
         _GT(typeof(Component)),
         _GT(typeof(Behaviour)),
         _GT(typeof(MonoBehaviour)),        
@@ -128,6 +128,9 @@ public static class CustomSettings
         _GT(typeof(ThreadManager)),
         _GT(typeof(NetworkManager)),
         _GT(typeof(ResourceManager)),		  
+
+        //------------------------
+        _GT(typeof(TestLog))
     };
 
     public static List<Type> dynamicList = new List<Type>()

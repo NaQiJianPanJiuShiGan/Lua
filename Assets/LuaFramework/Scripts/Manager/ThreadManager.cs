@@ -59,7 +59,7 @@ namespace LuaFramework {
 
         /// <summary>
         /// 通知事件
-        /// </summary>
+        /// </summary>  
         /// <param name="state"></param>
         private void OnSyncEvent(NotiData data) {
             if (this.func != null) func(data);  //回调逻辑层

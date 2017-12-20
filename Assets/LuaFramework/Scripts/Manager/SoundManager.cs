@@ -6,11 +6,94 @@ namespace LuaFramework {
     public class SoundManager : Manager {
         private AudioSource audio;
         private Hashtable sounds = new Hashtable();
-
+        string backSoundKey;
         void Start() {
             audio = GetComponent<AudioSource>();
+            if (audio==null)
+            {
+                gameObject.AddComponent<AudioSource>();
+            }
         }
-
+        //回调函数原型
+        private delegate void GetBack(AudioClip clip, string key);
+        
+        //获取声音资源
+        private void Get(string abName,string assetName, GetBack cb)
+        {
+            string key = abName + "." + assetName;
+            if (sounds[key]==null)//表中没有,ab中实例化
+            {
+                ResManager.LoadAudioClip(abName, assetName, delegate(Object[] objs)//这里的委托参数是lua传过来的
+                  {
+                      if (objs == null || objs[0] == null)
+                      {
+                          Debug.Log("PlaySound fail");
+                          cb(null, key);
+                          return;
+                      }
+                      else
+                      {
+                          sounds.Add(key, objs[0]);
+                          cb(objs[0] as AudioClip, key);
+                          return;
+                      }
+                  }
+                );
+            }
+            else
+            {
+                cb(sounds[key] as AudioClip, key);
+            }
+        }
+        //播放背景音乐
+        public void PlayBackSound(string abName,string assetName)
+        {
+            backSoundKey = abName + "." + assetName;
+            print(backSoundKey);
+            Get(abName, assetName, GetCallBack);
+        }
+        //播放背景音乐的回调
+        public void GetCallBack(AudioClip clip, string key)
+        {
+            if (clip==null)
+            {
+                return;
+            }
+            if (key!=backSoundKey)
+            {
+                return;
+            }
+            audio.loop = true;
+            audio.clip = clip;
+            audio.Play();
+        }
+        //停止播放背景音乐
+        public void StopBackSound()
+        {
+            backSoundKey = "";
+            audio.Stop();
+        }
+        //播放音效
+        public void PlaySound(string abName,string assetName)
+        {
+            Debugger.Log("123");
+            Get(abName, assetName, GetSoundCallBack);
+        }
+        //播放音效的回调方法
+        public void GetSoundCallBack(AudioClip clip,string key)
+        {
+            if (clip==null)
+            {
+                Debugger.Log("加载声音失败");
+                return;
+            }
+            if (Camera.main==null)
+            {
+                Debugger.Log("相机为空");
+                return;
+            }
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+        }
         /// <summary>
         /// 添加一个声音
         /// </summary>

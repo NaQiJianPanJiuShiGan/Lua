@@ -28,12 +28,17 @@ end
 
 --Socket消息--
 function Network.OnSocket(key, data)
-    Event.Brocast(tostring(key), data);
+	if key==101 then
+		Debugger.Log("OnSocket Connect")
+	else 
+		Debugger.Log("OnSocket Other")
+	end
+    -- Event.Brocast(tostring(key), data);
 end
 
 --当连接建立时--
 function Network.OnConnect() 
-    logWarn("Game Server connected!!");
+    Debugger.Log("Game Server connected!!");
 end
 
 --异常断线--

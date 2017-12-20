@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2472753955
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: efefc4ff8f76077eb8717882344f3bb6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Demo/Prefabs/Sound/braveheart.mp3
+Dependencies: []

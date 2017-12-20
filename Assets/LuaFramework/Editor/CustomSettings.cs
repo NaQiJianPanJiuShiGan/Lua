@@ -129,8 +129,10 @@ public static class CustomSettings
         _GT(typeof(NetworkManager)),
         _GT(typeof(ResourceManager)),		  
 
-        //------------------------
-        _GT(typeof(TestLog))
+        //------------------------自定义脚本
+        _GT(typeof(TestLog)),
+        _GT(typeof(LuaComponent)),
+        _GT(typeof(UIEvent))
     };
 
     public static List<Type> dynamicList = new List<Type>()
